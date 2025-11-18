@@ -1,0 +1,16 @@
+torch
+torchvision
+torchaudio
+
+transformers
+sentencepiece
+
+pillow
+pandas
+numpy
+scikit-learn
+
+tqdm
+
+ollama
+
