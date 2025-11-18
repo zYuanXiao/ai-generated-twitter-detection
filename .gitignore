@@ -1,0 +1,2 @@
+# don't upload fakeV2 data it is too large
+data/fakeV2/
