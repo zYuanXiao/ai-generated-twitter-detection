@@ -19,7 +19,7 @@ REAL_TXT_DIR = DATA_DIR / "real" / "real_tweet"
 IMG_EXTS = {".jpg", ".jpeg", ".png", ".bmp", ".webp"}
 
 def read_text(path: Path) -> str:
-    """读取 txt 文本并压成一行"""
+    """read and compress txt file into one line"""
     with path.open("r", encoding="utf-8", errors="ignore") as f:
         text = f.read()
     return " ".join(text.strip().split())
@@ -43,7 +43,7 @@ def collect_pairs(img_dir, txt_dir, label):
 
         text = read_text(txt_path)
 
-        # 相对 data/ 的路径
+        # relative path of data/ 
         rel_img = os.path.join("data", os.path.relpath(image_path, DATA_DIR))
 
         samples.append((rel_img, text, label))

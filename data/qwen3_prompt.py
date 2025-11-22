@@ -2,7 +2,7 @@ import os
 from ollama import chat
 from tqdm import tqdm
 
-# 输入与输出目录
+# input and output folder
 IMAGE_DIR = "data/real_fake/real"
 OUTPUT_DIR = "data/real_fake/real_tweet"
 # IMAGE_DIR = "data/fakeV2/fake-v2"
@@ -12,7 +12,7 @@ os.makedirs(OUTPUT_DIR, exist_ok=True)
 PROMPT = """
 Look at the image internally. Do not describe the image. Do not explain the image.
 
-Write a tweet-style post inspired by its mood or message, keeping it extremely short: 1–2 sentences, under 30 words.
+Write a tweet-style post inspired by its mood or message, keeping it extremely short: 1-2 sentences, under 30 words.
 
 If the image shows everyday life, people, casual moments, or real-world scenes, use a natural, conversational, human tone — simple, relaxed, and effortless.
 

@@ -16,7 +16,7 @@ FAKE_IMG_DIRS = [
 
 FAKE_TXT_DIRS = [
     DATA_DIR / "fakeV2" / "fake_tweet",
-    DATA_DIR / "real_fake" / "real_tweet",   # 如果不存在会自动跳过
+    DATA_DIR / "real_fake" / "real_tweet",   # if not exist then skip
 ]
 
 # Real image + text
@@ -27,14 +27,14 @@ IMG_EXTS = {".jpg", ".jpeg", ".png", ".bmp", ".webp"}
 
 
 def read_text(path: Path) -> str:
-    """读取 txt 文本并压成一行"""
+    """read and compress txt file into one line"""
     with path.open("r", encoding="utf-8", errors="ignore") as f:
         text = f.read()
     return " ".join(text.strip().split())
 
 
 def collect_pairs(img_dir, txt_dir, label):
-    """根据 img_dir + txt_dir 生成 (img_path, text, label)"""
+    """according to  img_dir + txt_dir generate (img_path, text, label) pairs"""
     samples = []
 
     if not txt_dir.exists():
@@ -44,7 +44,7 @@ def collect_pairs(img_dir, txt_dir, label):
 
     for stem, txt_path in txt_files.items():
 
-        # 找对应图片
+        # find corresponding image
         image_path = None
         for ext in IMG_EXTS:
             cand = img_dir / f"{stem}{ext}"
@@ -57,7 +57,7 @@ def collect_pairs(img_dir, txt_dir, label):
 
         text = read_text(txt_path)
 
-        # image path 相对 data/ 的路径
+        #  relative path of data/ 
         rel_img = os.path.join("data", os.path.relpath(image_path, DATA_DIR))
 
         samples.append((rel_img, text, label))
