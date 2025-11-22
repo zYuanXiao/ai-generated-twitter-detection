@@ -3,10 +3,10 @@ from ollama import chat
 from tqdm import tqdm
 
 # 输入与输出目录
-# IMAGE_DIR = "data/real/real"
-# OUTPUT_DIR = "data/real/real_tweet"
-IMAGE_DIR = "data/fakeV2/fake-v2"
-OUTPUT_DIR = "data/fakeV2/fake_tweet"
+IMAGE_DIR = "data/real_fake/real"
+OUTPUT_DIR = "data/real_fake/real_tweet"
+# IMAGE_DIR = "data/fakeV2/fake-v2"
+# OUTPUT_DIR = "data/fakeV2/fake_tweet"
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 
 PROMPT = """

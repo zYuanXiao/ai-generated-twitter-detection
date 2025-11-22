@@ -1,2 +1,4 @@
-# don't upload fakeV2 data it is too large
-data/fakeV2/
+# don't upload image and text data it is too large
+data/archive
+data/fakeV2
+data/real_fake

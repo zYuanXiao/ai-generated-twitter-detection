@@ -11,7 +11,7 @@ import numpy as np
 
 
 MAX_TEXT_LEN = 77
-
+Image.MAX_IMAGE_PIXELS = None
 MODEL_NAME = "openai/clip-vit-large-patch14-336"
 
 TRAIN_CSV = "data/train.csv"
