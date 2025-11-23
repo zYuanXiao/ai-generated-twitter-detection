@@ -31,7 +31,7 @@ print("Using device:", device)
 
 class TweetMatchDataset(Dataset):
     """
-    从CSV里读数据，格式：image_path, text, label
+    Read data from csv, format: image_path, text, label
     """
 
     def __init__(self, csv_path):
@@ -51,7 +51,7 @@ class TweetMatchDataset(Dataset):
 
 def collate_fn(batch, processor):
     """
-    把(image_path, text, label)打包成CLIP的输入
+    pack(image_path, text, label) to the input of CLIP
     """
 
     images = []
@@ -80,11 +80,11 @@ def collate_fn(batch, processor):
 
 class MatchClassifier(nn.Module):
     """
-    用：
-      - image_embeds
-      - text_embeds
-      - cosine similarity
-    拼成一个向量，然后做二分类（match / mismatch）
+    Use:
+        - image_embeds
+        - text_embeds
+        - cosine similarity
+    Concatenate them into one vector, then perform binary classification (match / mismatch).
     """
 
     def __init__(self, embed_dim, hidden_dim=512):
@@ -94,7 +94,7 @@ class MatchClassifier(nn.Module):
             nn.Linear(input_dim, hidden_dim),
             nn.ReLU(),
             nn.Dropout(0.3),
-            nn.Linear(hidden_dim, 2)  # 2类：0/1
+            nn.Linear(hidden_dim, 2)  # Two classes：0/1
         )
 
     def forward(self, image_embeds, text_embeds):
@@ -104,7 +104,7 @@ class MatchClassifier(nn.Module):
         # cosine similarity
         sim = (image_norm * text_norm).sum(dim=-1, keepdim=True)  # [B,1]
 
-        # 拼接
+        # Concatenation
         x = torch.cat([image_norm, text_norm, sim], dim=-1)
         logits = self.mlp(x)
 
@@ -112,11 +112,12 @@ class MatchClassifier(nn.Module):
 
 
 
-# Zero-shot baseline：只用 CLIP 相似度
+# Zero-shot baseline：use only CLIP similarity
 
 def zero_shot_baseline(clip_model, processor, csv_path):
     """
-    不训练，只用CLIP的image/text embedding算相似度，然后在 val 集上扫阈值，找一个最好的
+    No training. 
+    Directly compute CLIP image/text similarity, then sweep a threshold on the val set to find the best one.
     """
 
     df = pd.read_csv(csv_path)
@@ -155,7 +156,7 @@ def zero_shot_baseline(clip_model, processor, csv_path):
     sims = np.array(sims)
     labels = np.array(labels)
 
-    # 扫阈值
+    # Threshold sweeping
     best_acc = -1
     best_th = None
     for th in [x / 100.0 for x in range(-50, 51)]:  # -0.5 ~ 0.5
@@ -176,7 +177,7 @@ def zero_shot_baseline(clip_model, processor, csv_path):
 
 
 
-# 训练+验证函数（冻结CLIP，只训分类头）
+# Training + validation functions (freeze CLIP, train only the classifier head)
 
 def train_one_epoch(clip_model, classifier, data_loader, criterion, optimizer, processor):
     clip_model.eval()
@@ -253,18 +254,18 @@ def main():
     clip_model = CLIPModel.from_pretrained(MODEL_NAME).to(device)
     processor = CLIPProcessor.from_pretrained(MODEL_NAME)
 
-    #Zero-shot baseline（只用 val 集）
+    #Zero-shot baseline（validation set only）
     if os.path.exists(VAL_CSV):
         zero_shot_baseline(clip_model, processor, VAL_CSV)
     else:
         print(f"[Warning] VAL_CSV {VAL_CSV} not found, skip zero-shot baseline.")
 
-    # train分类头
+    # Train classifier head
     if not os.path.exists(TRAIN_CSV) or not os.path.exists(VAL_CSV):
         print("[Error] TRAIN_CSV or VAL_CSV not found, cannot train classifier.")
         return
 
-    # 冻结CLIP参数（只训分类头）
+    # Freeze CLIP parameters (train classifier head only)
     for p in clip_model.parameters():
         p.requires_grad = False
 
