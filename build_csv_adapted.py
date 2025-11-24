@@ -73,15 +73,22 @@ def write_csv(name, rows):
         writer.writerows(rows)
     print(f"> Saved {len(rows)} rows → {out_path}")
 
-
 def main():
     data = []
-
-    # collect fake
-    for img_dir, txt_dir in zip(FAKE_IMG_DIRS, FAKE_TXT_DIRS):
+    for img_dir, txt_dir in zip(FAKE_IMG_DIRS[:1], FAKE_TXT_DIRS[:1]):
         data += collect_pairs(img_dir, txt_dir, label=0)
 
-    # collect real
+    mixed_pairs = collect_pairs(FAKE_IMG_DIRS[1], FAKE_TXT_DIRS[1], label=None)
+
+    random.shuffle(mixed_pairs)
+
+    mid = len(mixed_pairs) // 2
+    mixed_fake = [(img, txt, 0) for (img, txt, _) in mixed_pairs[:mid]]
+    mixed_real = [(img, txt, 1) for (img, txt, _) in mixed_pairs[mid:]]
+
+    data += mixed_fake
+    data += mixed_real
+
     data += collect_pairs(REAL_IMG_DIR, REAL_TXT_DIR, label=1)
 
     if not data:
@@ -89,7 +96,6 @@ def main():
         return
 
     random.shuffle(data)
-
     n = len(data)
     n_train = int(0.8 * n)
     n_val = int(0.1 * n)
@@ -101,7 +107,6 @@ def main():
     write_csv("train.csv", train_data)
     write_csv("val.csv", val_data)
     write_csv("test.csv", test_data)
-
 
 if __name__ == "__main__":
     main()
