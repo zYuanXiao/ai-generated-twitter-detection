@@ -2,8 +2,6 @@
 *A CLIP-Based Approach to Identifying AI-Generated Tweets*  
 **Yuqing Fan & Zhiyuan Xiao — CSC 245 (Fall 2025)**
 
----
-
 ## 1. Motivation
 
 AI-generated text–image content is increasingly common on social media.  
@@ -14,23 +12,14 @@ This project asks:
 
 We develop a scalable multimodal detector using CLIP.
 
----
 
-## 2. Research Question
-
-- Does the image match the meaning of the text?  
-- Do AI-generated tweets show distinct multimodal patterns?  
-- Can embeddings reveal inconsistencies invisible to the human eye?
-
----
-
-## 3. Method Overview
+## 2. Method Overview
 
 ### 🔹 Dataset Construction  
 We create real and synthetic tweet pairs.  
 AI-generated captions follow a controlled prompt:
 
-> “Look at the image. Do not describe it. Write a tweet-style post (1–2 sentences, <30 words)... Stay concise... No hashtag lists... Output only the tweet.”
+> “Look at the image internally. Do not describe the image. Do not explain the image. Write a tweet-style post inspired by its mood or message, keeping it extremely short: 1-2 sentences, under 30 words ...  You may include one or two natural hashtags ... Avoid descriptions, summaries, or analytical language. Output only the tweet.”
 
 This generates natural AI-style captions.
 
@@ -52,9 +41,8 @@ Benefits:
 - Goes beyond a single similarity score  
 - Captures tweet-specific non-linear patterns  
 
----
 
-## 4. Results
+## 3. Results
 
 ### 🎯 Accuracy: **87.37%**  
 ### 🎯 F1 Score: **0.88**
@@ -68,9 +56,7 @@ Model behavior:
   - **False Positive**: real image paired with very short generated text  
   - **False Negative**: artistic images or very long text (>77 tokens)
 
----
-
-## 5. Interpretability
+## 4. Interpretability
 
 We analyze:
 
@@ -88,9 +74,8 @@ Insights:
 - Explains misclassifications  
 - Evaluates robustness to text length and visually complex artwork
 
----
 
-## 6. Method Improvement & Benchmark Plan
+## 5. Method Improvement & Benchmark Plan
 
 ### ✔ Performance Comparison
 - **Ours (CLIP + MLP)**: 87.37% accuracy  
@@ -107,38 +92,52 @@ Possible benchmark dimensions:
 - Cross-model robustness (Midjourney, SD3, DALL·E, etc.)  
 - Reasoning-based mismatch detection  
 
----
-
-## 7. File Structure
+## 6. File Structure
 ```bash
+├── checkpoints/
+│   └── best_clip_match_classifier.pt
+├── data/
+│   ├── archive/
+│   ├── fakeV2/
+│   ├── real_fake/
+│   ├── qwen3_prompt.py
+│   ├── train.csv
+│   ├── val.csv
+│   └── test.csv
+│
 ├── build_csv.py
 ├── build_csv_adapted.py
 ├── clip_tweet_match.py
 ├── plot_eval.py
 ├── visualize_part_contribution.py
+├── Accuracy_and_F1_score.png
+├── contrib_0cd5khj3wo5a1.png
 ├── requirements.txt
-└── data/
+└── README.md
+
 ```
 
-## 8. Usage
+## 7. Usage
 
 ### Install dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
-Train model
+### Train model
 ```bash
 python clip_tweet_match.py
 ```
-Evaluate
+### Evaluate
 ```bash
 python plot_eval.py
 ```
-Run interpretability
+### Run interpretability
 ```bash
-python visualize_part_contribution.py \
-    --ckpt checkpoints/best_clip_match_classifier.pt \
-    --image path/to/image.png \
-    --text "tweet text here"
+python visualize_part_contribution.py `
+  --ckpt "checkpoints/best_clip_match_classifier.pt" `
+  --image "data/real_fake/real/0cd5khj3wo5a1.jpg" `
+  --text "Chasing the glow in the dark, where colors bleed into dreams. 🌌 #VividSoul" `
+  --grid 7 `
+  --out "contrib_0cd5khj3wo5a1.png"
 ```
