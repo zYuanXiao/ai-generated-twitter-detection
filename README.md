@@ -82,7 +82,7 @@ Insights:
 - **Zero-shot CLIP**: 55.01% accuracy  
 - Large improvement in both accuracy and F1.
 
-### ✔ Future Benchmark (Similar to GenEval)
+### Future Benchmark (still in progress)
 Goal: Evaluate *how real* an AI-generated tweet appears.
 
 Possible benchmark dimensions:
@@ -94,26 +94,25 @@ Possible benchmark dimensions:
 
 ## 6. File Structure
 ```bash
-├── checkpoints/
-│   └── best_clip_match_classifier.pt
-├── data/
-│   ├── archive/
-│   ├── fakeV2/
-│   ├── real_fake/
-│   ├── qwen3_prompt.py
-│   ├── train.csv
-│   ├── val.csv
-│   └── test.csv
-│
-├── build_csv.py
-├── build_csv_adapted.py
-├── clip_tweet_match.py
-├── plot_eval.py
-├── visualize_part_contribution.py
-├── Accuracy_and_F1_score.png
-├── contrib_0cd5khj3wo5a1.png
-├── requirements.txt
-└── README.md
+├── checkpoints/                        # Saved model weights
+│   └── best_clip_match_classifier.pt   # Best-performing MLP classifier
+├── data/                               # All datasets and related scripts
+│   ├── archive/                        # Real tweet dataset (MMHS150K-based) real image/real text
+│   ├── fakeV2/                         # AI-generated fake image/fake text dataset
+│   ├── real_fake/                      # Mixed real image/fake text pairs for variation  (We do not deal with fake image/real image since We cannot find an appropriate dataset and it  is hard  to build)
+│   ├── qwen3_prompt.py                 # Prompt used to generate synthetic tweets
+│   ├── train.csv                       # Training split (image_path, text, label)
+│   ├── val.csv                         # Validation split
+│   └── test.csv                        # Test split
+├── build_csv.py                        # Standard CSV builder for real/fake pairs and fake/fake pair
+├── build_csv_adapted.py                # Advanced builder for mixed datasets for all pairs
+├── clip_tweet_match.py                 # Training script for CLIP + MLP classifier
+├── plot_eval.py                        # Evaluation + confusion matrix + metrics plotting
+├── visualize_part_contribution.py      # Model-level, token-level, and occlusion analysis
+├── Accuracy_and_F1_score.png           # Evaluation visualization (confusion matrix + metrics)
+├── contrib_0cd5khj3wo5a1.png           # Example occlusion heatmap from interpretability module
+├── requirements.txt                    # Python dependency list
+└── README.md                           # this file
 
 ```
 
