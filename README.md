@@ -83,14 +83,13 @@ Insights:
 - Large improvement in both accuracy and F1.
 
 ### Future Benchmark (still in progress)
-| image_name | text | label | clip_sim | obj_align | fact_consistency |
-| :---: | :--- | :---: | :---: | :---: | :---: |
-| <img src="data/2632.jpg" width="100"> | Calm eyes, quiet hands. Time paused in a portrait’s hold. #Art #Silence | 0 | 0.172 | 0.144 | 1.000 |
-| <img src="data/1105615862885695489.jpg" width="100"> | ECLA | 1 | 0.166 | 0.166 | 1.000 |
-| <img src="data/10276.jpg" width="100"> | Pizza and performance, all in one kitchen. The stage is always ready. #StageChef | 0 | 0.236 | 0.165 | 0.800 |
-| <img src="data/12915.jpg" width="100"> | Mirror selfie: hair’s a riot, face paint’s a mess. But hey, it’s me. #Unfiltered | 0 | 0.231 | 0.157 | 1.000 |
-| <img src="data/3098.jpg" width="100"> | Stone hush. Time’s quiet pulse in these walls. 🌿 #AncientStillness | 0 | 0.139 | 0.150 | 1.000 |
-| <img src="data/61cz3luus96a1.jpg" width="100"> | Ghosts with halos float in the water’s folds. Time’s skin, layered and worn. #memory #light | 1 | 0.197 | 0.166 | 1.000 |
+| image_name | text | label | clip_sim | obj_align | fact_consistency | attr_consistency | disc_coherence | incongruity | clf_prob_real |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| <img src="data/2632.jpg" width="100"> | Calm eyes, quiet hands. Time paused in a portrait’s hold. #Art #Silence | 0 | 0.172 | 0.144 | 1.000 | 0.472 | 0.923 | 0.414 | 0.290 |
+| <img src="data/1105615862885695489.jpg" width="100"> | ECLA | 1 | 0.166 | 0.166 | 1.000 | 0.300 | 0.000 | 0.417 | 0.992 |
+| <img src="data/10276.jpg" width="100"> | Pizza and performance, all in one kitchen. The stage is always ready. #StageChef | 0 | 0.236 | 0.165 | 0.800 | 0.477 | 0.923 | 0.382 | 0.013 |
+| <img src="data/12915.jpg" width="100"> | Mirror selfie: hair’s a riot, face paint’s a mess. But hey, it’s me. #Unfiltered | 0 | 0.231 | 0.157 | 1.000 | 0.459 | 0.824 | 0.385 | 0.036 |
+| <img src="data/3098.jpg" width="100"> | Stone hush. Time’s quiet pulse in these walls. 🌿 #AncientStillness | 0 | 0.139 | 0.150 | 1.000 | 0.478 | 0.900 | 0.430 | 0.387 |
 
 ## 6. File Structure
 ```bash
