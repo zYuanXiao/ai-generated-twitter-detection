@@ -83,14 +83,14 @@ Insights:
 - Large improvement in both accuracy and F1.
 
 ### Future Benchmark (still in progress)
-Goal: Evaluate *how real* an AI-generated tweet appears.
-
-Possible benchmark dimensions:
-- Semantic consistency  
-- Visual artifact detection  
-- Text style naturalness  
-- Cross-model robustness (Midjourney, SD3, DALL·E, etc.)  
-- Reasoning-based mismatch detection  
+| image_name | text | label | clip_sim | obj_align | fact_consistency |
+| :---: | :--- | :---: | :---: | :---: | :---: |
+| <img src="data/2632.jpg" width="100"> | Calm eyes, quiet hands. Time paused in a portrait’s hold. #Art #Silence | 0 | 0.172 | 0.144 | 1.000 |
+| <img src="data/1105615862885695489.jpg" width="100"> | ECLA | 1 | 0.166 | 0.166 | 1.000 |
+| <img src="data/10276.jpg" width="100"> | Pizza and performance, all in one kitchen. The stage is always ready. #StageChef | 0 | 0.236 | 0.165 | 0.800 |
+| <img src="data/12915.jpg" width="100"> | Mirror selfie: hair’s a riot, face paint’s a mess. But hey, it’s me. #Unfiltered | 0 | 0.231 | 0.157 | 1.000 |
+| <img src="data/3098.jpg" width="100"> | Stone hush. Time’s quiet pulse in these walls. 🌿 #AncientStillness | 0 | 0.139 | 0.150 | 1.000 |
+| <img src="data/61cz3luus96a1.jpg" width="100"> | Ghosts with halos float in the water’s folds. Time’s skin, layered and worn. #memory #light | 1 | 0.197 | 0.166 | 1.000 |
 
 ## 6. File Structure
 ```bash
