@@ -83,7 +83,16 @@ Insights:
 - Large improvement in both accuracy and F1.
 
 ### Future Benchmark (still in progress)
-| image_name | text | label | clip_sim | obj_align | fact_consistency | attr_consistency | disc_coherence | incongruity | clf_prob_real |
+Goal: Evaluate *how real* an AI-generated tweet appears.
+
+Possible benchmark dimensions:
+- Semantic consistency  
+- Visual artifact detection  
+- Text style naturalness  
+- Cross-model robustness (Midjourney, SD3, DALL·E, etc.)  
+- Reasoning-based mismatch detection
+
+| image | text | label | clip sim | object align | fact consistency | attribute consistency | discription coherence | incongruity | clf prob real |
 | :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
 | <img src="data/2632.jpg" width="100"> | Calm eyes, quiet hands. Time paused in a portrait’s hold. #Art #Silence | 0 | 0.172 | 0.144 | 1.000 | 0.472 | 0.923 | 0.414 | 0.290 |
 | <img src="data/1105615862885695489.jpg" width="100"> | ECLA | 1 | 0.166 | 0.166 | 1.000 | 0.300 | 0.000 | 0.417 | 0.992 |
